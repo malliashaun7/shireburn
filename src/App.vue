@@ -1,34 +1,21 @@
 <template>
 
-  <div class="container">
+  <div class="bg-light">
 
-    <header class="py-3 mb-4 border-bottom">
+    <div class="container">
 
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <span class="fs-4"><i class="fa-solid fa-house"></i> App</span>
+        </a>
 
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">App</a>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+        </ul>
+      </header>
 
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-            </ul>
-
-          </div>
-
-        </div>
-
-      </nav>
-
-    </header>
-
+    </div>
+    
   </div>
 
   <main class="mt-5">
@@ -52,5 +39,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: rgba(0, 0, 0, .1);
 }
 </style>
