@@ -4,26 +4,157 @@
         <i class="fa-solid fa-spinner fa-spin"></i>
     </div>
 
+    <template v-else>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="fw-normal text-primary">Employees</h3>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="offset-lg-10 col-lg-2 offset-md-6 col-md-6 col-sm-12">
+                <label for="search" class="form-label">Search</label>
+                <input v-model="this.searchValue" type="text" class="form-control" id="search">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            
+            <div class="col-12 d-none d-sm-none d-md-none d-lg-block">
+
+                <EasyDataTable class="table"
+                    empty-message="No records found"
+                    rows-per-page-message="Rows per page"
+                    rows-of-page-separator-message="of"
+                    :rows-per-page=10
+                    :headers="this.tableHeaders"
+                    :items="this.tableItems"
+                    :search-field="this.searchField"
+                    :search-value="this.searchValue"
+                    table-class-name="customize-table"
+                    alternating
+                >
+
+                    <template #item-DateOfBirth="item">
+                        {{ this.toLocaleDate(item.DateOfBirth) }}
+                    </template>
+
+                    <template #item-EmploymentDate="item">
+                        {{ this.toLocaleDate(item.EmploymentDate) }}
+                    </template>
+
+                    <template #item-TerminationDate="item">
+                        {{ this.toLocaleDate(item.TerminationDate) }}
+                    </template>
+
+                </EasyDataTable>
+
+            </div>
+
+            <div class="col-12 d-block d-lg-none">
+
+                <EasyDataTable class="table"
+                    empty-message="No records found"
+                    rows-per-page-message="Rows per page"
+                    rows-of-page-separator-message="of"
+                    :rows-per-page=10
+                    :headers="this.mobileTableHeaders"
+                    :items="this.tableItems"
+                    :search-field="this.searchField"
+                    :search-value="this.searchValue"
+                    table-class-name="customize-table"
+                    alternating
+                >
+
+                    <template #expand="item">
+                        <table class="table mt-2">
+                            <tbody>
+                                <tr><td><strong>Gender</strong></td><td>{{ item.Gender }}</td></tr>
+                                <tr><td><strong>Occupation</strong></td><td>{{ item.Occupation }}</td></tr>
+                                <tr><td><strong>Date of birth</strong></td><td>{{ this.toLocaleDate(item.DateOfBirth) }}</td></tr>
+                                <tr><td><strong>Employment date</strong></td><td>{{ this.toLocaleDate(item.EmploymentDate) }}</td></tr>
+                                <tr><td><strong>Termination date</strong></td><td>{{ this.toLocaleDate(item.TerminationDate) }}</td></tr>
+                            </tbody>
+                        </table>
+                    </template>
+
+                </EasyDataTable>
+
+            </div>
+            
+        </div>
+
+    </template>
+
 </template>
 
 <script>
+import '../assets/css/easydatable.css';
+import EasyDataTable from 'vue3-easy-data-table';
+
 export default {
+    components: {
+        EasyDataTable,
+    },
+
     props: {
         employees: Array
     },
 
     data() {
         return {
+            locale: document.getElementsByTagName('html')[0].getAttribute('lang'),
             isLoading: true,
+            tableHeaders: [
+                { text: 'First name', value: "FirstName", sortable: true },
+                { text: 'Last name', value: "LastName", sortable: true },
+                { text: 'Gender', value: "Gender", sortable: true },
+                { text: 'Occupation', value: "Occupation", sortable: true },
+                { text: 'Date of birth', value: "DateOfBirth", sortable: true },
+                { text: 'Employment date', value: "EmploymentDate", sortable: true },
+                { text: 'Termination date', value: "TerminationDate", sortable: true },
+            ],
+            mobileTableHeaders: [
+                { text: 'First name', value: "FirstName", sortable: true },
+                { text: 'Last name', value: "LastName", sortable: true },
+            ],
+            tableItems: [],
+            searchField: ['FirstName', 'LastName', 'Gender', 'Occupation'],
+            searchValue: '',
         }
+    },
+
+    methods: {
+        /**
+         * @param {*} dateString 
+         */
+         toLocaleDate(dateString) {
+            if(!dateString) { return ''; }
+
+            var date = new Date(dateString);
+            if(!date ||!date.getTime()) { return ''; }
+            return date.toLocaleDateString( this.locale );
+        },
     },
 
     watch: {
         employees(updatedData) {
             if(updatedData.length > 0) {
-                this.isLoading = true;
+                this.isLoading = false;
             }
+
+            this.tableItems = updatedData;
         }
     }
 }
 </script>
+
+<style>
+.customize-table {
+    --easy-table-border: none;
+    --easy-table-header-font-size: initial;
+    --easy-table-body-row-font-size: initial;
+    --easy-table-footer-font-size: initial;
+}
+</style>

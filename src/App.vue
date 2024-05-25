@@ -1,22 +1,22 @@
 <template>
 
-  <div class="bg-light">
-
+  <nav class="navbar sticky-top navbar-light bg-light">
     <div class="container">
+      <a class="navbar-brand text-primary" href="/"><span class="fs-4"><i class="fa-solid fa-house"></i> App</span></a>
 
-      <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-          <span class="fs-4"><i class="fa-solid fa-house"></i> App</span>
-        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
         </ul>
-      </header>
-
+      </div>
     </div>
-    
-  </div>
+  </nav>
 
   <main class="mt-5">
     <router-view></router-view>
@@ -36,7 +36,8 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight:300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
