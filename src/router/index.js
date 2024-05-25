@@ -4,12 +4,12 @@ import Employee from '../views/Employee'
 
 const routes = [
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         component: Home,
     },
     {
-        path: '/employee',
+        path: '/employee/:id',
         name: 'Employee',
         component: Employee,
     }
