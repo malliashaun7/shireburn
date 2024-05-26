@@ -38,20 +38,12 @@
                         alternating
                     >
 
-                        <template #item-DateOfBirth="item">
-                            {{ this.toLocaleDate(item.DateOfBirth) }}
-                        </template>
-
-                        <template #item-EmploymentDate="item">
-                            {{ this.toLocaleDate(item.EmploymentDate) }}
-                        </template>
-
-                        <template #item-TerminationDate="item">
-                            {{ this.toLocaleDate(item.TerminationDate) }}
+                        <template #item-dateOfBirth="item">
+                            {{ this.toLocaleDate(item.dateOfBirth) }}
                         </template>
 
                         <template #item-ActionsSlot="item">
-                            <router-link :to="{ name: 'Employee', params: { id: item.Id }}"><i class="text-success fa-solid fa-square-pen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit employee"></i></router-link>
+                            <router-link :to="{ name: 'Employee', params: { id: item.id }}"><i class="text-success fa-solid fa-square-pen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit employee"></i></router-link>
                         </template>
 
                     </EasyDataTable>
@@ -76,10 +68,10 @@
                         <template #expand="item">
                             <table class="table mt-2">
                                 <tbody>
-                                    <tr><td><strong>Gender</strong></td><td>{{ item.Gender }}</td></tr>
-                                    <tr><td><strong>Occupation</strong></td><td>{{ item.Occupation }}</td></tr>
-                                    <tr><td><strong>Date of birth</strong></td><td>{{ this.toLocaleDate(item.DateOfBirth) }}</td></tr>
-                                    <tr><td><strong>Actions</strong></td><td><router-link :to="{ name: 'Employee', params: { id: item.Id }}"><i class="text-success fa-solid fa-square-pen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit employee"></i></router-link></td></tr>
+                                    <tr><td><strong>Gender</strong></td><td>{{ item.gender }}</td></tr>
+                                    <tr><td><strong>Occupation</strong></td><td>{{ item.occupation }}</td></tr>
+                                    <tr><td><strong>Date of birth</strong></td><td>{{ this.toLocaleDate(item.dateOfBirth) }}</td></tr>
+                                    <tr><td><strong>Actions</strong></td><td><router-link :to="{ name: 'Employee', params: { id: item.id }}"><i class="text-success fa-solid fa-square-pen" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit employee"></i></router-link></td></tr>
                                 </tbody>
                             </table>
                         </template>
@@ -114,19 +106,19 @@ export default {
             locale: document.getElementsByTagName('html')[0].getAttribute('lang'),
             isLoading: true,
             tableHeaders: [
-                { text: 'First name', value: "FirstName", sortable: true },
-                { text: 'Last name', value: "LastName", sortable: true },
-                { text: 'Gender', value: "Gender", sortable: true },
-                { text: 'Occupation', value: "Occupation", sortable: true },
-                { text: 'Date of birth', value: "DateOfBirth", sortable: true },
+                { text: 'First name', value: "firstName", sortable: true },
+                { text: 'Last name', value: "lastName", sortable: true },
+                { text: 'Gender', value: "gender", sortable: true },
+                { text: 'Occupation', value: "occupation", sortable: true },
+                { text: 'Date of birth', value: "dateOfBirth", sortable: true },
                 { text: 'Actions', value: "ActionsSlot", sortable: true },
             ],
             mobileTableHeaders: [
-                { text: 'First name', value: "FirstName", sortable: true },
-                { text: 'Last name', value: "LastName", sortable: true },
+                { text: 'First name', value: "firstName", sortable: true },
+                { text: 'Last name', value: "lastName", sortable: true },
             ],
             tableItems: [],
-            searchField: ['FirstName', 'LastName', 'Gender', 'Occupation'],
+            searchField: ['firstName', 'lastName', 'gender', 'occupation'],
             searchValue: '',
         }
     },

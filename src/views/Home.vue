@@ -2,10 +2,10 @@
     
     <div class="bg-white">
 
-        <div class="row mt-4">
+        <div class="row pt-4">
 
             <div class="col-md-6 mx-auto">
-                <h1 class="display-1 fw-light text-center text-muted">Welcome</h1>
+                <h1 class="display-4 fw-light text-center text-muted">Welcome</h1>
             </div>
 
         </div>
@@ -41,10 +41,15 @@ export default {
      * Fetches employees from json server
      */
     async fetchEmployees() {
-      const response = await fetch('api/employees');
-      const data = await response.json();
+      try {
+        const response = await fetch('api/employees');
+        const data = await response.json();
 
-      this.employees = data;
+        this.employees = data;
+      }
+      catch(error) {
+        alert('Sorry, could not fetch employees');
+      }
     },
 
   },
