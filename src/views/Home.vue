@@ -1,8 +1,8 @@
 <template>
     
-    <div class="bg-white p-5">
+    <div class="bg-white">
 
-        <div class="row">
+        <div class="row mt-4">
 
             <div class="col-md-6 mx-auto">
                 <h1 class="display-1 fw-light text-center text-muted">Welcome</h1>
