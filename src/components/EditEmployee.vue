@@ -68,6 +68,7 @@
 
 <script>
 import 'flatpickr/dist/flatpickr.css';
+import {Validation} from "../assets/js/validation.js";
 import Input from './Form/Input'
 import InputDate from './Form/InputDate'
 import SubmitButton from './Form/SubmitButton'
@@ -95,19 +96,26 @@ export default {
     },
 
     methods: {
-        /**
-         * Submits the form
-         */
-        async onSubmit() {
+        async validate() {
+            // Run some quick validations
+            var validations = {
+                employmentDate: Validation.date(this.formData.employmentDate),
+                terminationDate: Validation.date(this.formData.terminationDate),
+            };
 
-            this.isSubmitDisabled = true;
-            this.errors = {};
+            for (const [key, value] of Object.entries(validations)) {
+                if(value.status == 'error') {
+                    this.errors[key] = value.message;
+                }
+            }
+        },
 
+        async update() {
             try {
                 const response = await fetch(`${window.location.origin}/api/employees/${this.formData.id}`, {
                     method: 'PUT',
                     headers: {
-                    'Content-type': 'application/json',
+                        'Content-type': 'application/json',
                     },
                     body: JSON.stringify(this.formData),
                 });
@@ -130,6 +138,21 @@ export default {
 
             this.alertMessage = alertMessage;
             this.displayAlert = true;
+        },
+
+        /**
+         * Submits the form
+         */
+        async onSubmit() {
+        
+            this.isSubmitDisabled = true;
+            this.errors = {};
+
+            await this.validate();
+
+            if(Object.keys(this.errors).length == 0) {
+                await this.update();
+            }
 
             this.isSubmitDisabled = false;
         },
