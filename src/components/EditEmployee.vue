@@ -98,23 +98,40 @@ export default {
         /**
          * Submits the form
          */
-        onSubmit() {
+        async onSubmit() {
 
             this.isSubmitDisabled = true;
             this.errors = {};
 
-            // Filter out what to send to backend
-            var formData = {
-                employmentDate: this.formData.employmentDate,
-                terminationDate: this.formData.terminationDate,
-            };
+            try {
+                const response = await fetch(`${window.location.origin}/api/employees/${this.formData.id}`, {
+                    method: 'PUT',
+                    headers: {
+                    'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(this.formData),
+                });
+                const data = await response.json();
+
+                this.employees = data;
+            }
+            catch(error) {
+                alert('Sorry, could not update employee');
+            }
 
             // Check dates to display in message
-            //var today = new Date;
-            //var employmentDate = new Date(formData.employmentDate);
-            //var terminationDate = new Date(formData.terminationDate);
+            var today = new Date;
+            var employmentDate = new Date(this.formData.employmentDate);
+            var terminationDate = new Date(this.formData.terminationDate);
 
-            console.log(formData);
+            var alertMessage = '';
+            alertMessage += '<strong>Employment</strong>: ' + ( today > employmentDate ? 'Currently employed' : 'Employed soon' ) + '<br/>';
+            alertMessage += '<strong>Termination</strong>: ' + ( today > terminationDate ? 'Terminated' : 'To be terminated' );
+
+            this.alertMessage = alertMessage;
+            this.displayAlert = true;
+
+            this.isSubmitDisabled = false;
         },
     },
 
